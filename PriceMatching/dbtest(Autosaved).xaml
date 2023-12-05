@@ -1,4 +1,4 @@
-<Activity mc:Ignorable="sap sap2010" x:Class="dbtest" VisualBasic.Settings="{x:Null}" sap:VirtualizedContainerService.HintSize="1240,521" sap2010:WorkflowViewState.IdRef="dbtest_1" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=System.Private.CoreLib" xmlns:sco="clr-namespace:System.Collections.ObjectModel;assembly=System.Private.CoreLib" xmlns:sd="clr-namespace:System.Data;assembly=System.Data.Common" xmlns:ui="http://schemas.uipath.com/workflow/activities" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+<Activity mc:Ignorable="sap sap2010" x:Class="dbtest" VisualBasic.Settings="{x:Null}" sap:VirtualizedContainerService.HintSize="1240,643" sap2010:WorkflowViewState.IdRef="dbtest_1" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=System.Private.CoreLib" xmlns:sco="clr-namespace:System.Collections.ObjectModel;assembly=System.Private.CoreLib" xmlns:sd="clr-namespace:System.Data;assembly=System.Data.Common" xmlns:ui="http://schemas.uipath.com/workflow/activities" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
   <TextExpression.NamespacesForImplementation>
     <sco:Collection x:TypeArguments="x:String">
       <x:String>System.Activities</x:String>
@@ -91,22 +91,33 @@
       <AssemblyReference>UiPath.Excel</AssemblyReference>
     </sco:Collection>
   </TextExpression.ReferencesForImplementation>
-  <Sequence DisplayName="dbtest" sap:VirtualizedContainerService.HintSize="450,456" sap2010:WorkflowViewState.IdRef="Sequence_1">
+  <Sequence DisplayName="dbtest" sap:VirtualizedContainerService.HintSize="496,578" sap2010:WorkflowViewState.IdRef="Sequence_1">
     <Sequence.Variables>
       <Variable x:TypeArguments="ui:DatabaseConnection" Name="conn" />
       <Variable x:TypeArguments="sd:DataTable" Name="res" />
+      <Variable x:TypeArguments="x:String" Name="queryItemNo" />
     </Sequence.Variables>
     <sap:WorkflowViewStateService.ViewState>
       <scg:Dictionary x:TypeArguments="x:String, x:Object">
         <x:Boolean x:Key="IsExpanded">True</x:Boolean>
       </scg:Dictionary>
     </sap:WorkflowViewStateService.ViewState>
-    <ui:DatabaseConnect DisplayName="Connect to database" sap:VirtualizedContainerService.HintSize="388,60" sap2010:WorkflowViewState.IdRef="DatabaseConnect_1" ProviderName="Microsoft.Data.SqlClient" ConnectionString="Data Source=TFPTEST;Initial Catalog=TFP_MIRROR;Integrated Security=True;Encrypt=False" DatabaseConnection="[conn]" />
-    <ui:ExecuteQuery ContinueOnError="{x:Null}" TimeoutMS="{x:Null}" CommandType="Text" DataTable="[res]" DisplayName="Run query" ExistingDbConnection="[conn]" sap:VirtualizedContainerService.HintSize="388,89" sap2010:WorkflowViewState.IdRef="ExecuteQuery_1" Sql="SELECT A.*,C.[Description]&#xD;&#xA;&#x9;&#xD;&#xA;&#x9;&#xD;&#xA;FROM&#x9;&#xD;&#xA;&#x9;(SELECT convert(varchar,A.[Starting Date], 23) as EffectiveDate,convert(varchar,A.[Ending Date], 23) as PriceEnded,A.[Sales Code],&#xD;&#xA;&#x9;&#x9;A.[Item No_],A.[Unit of Measure Code],A.[Unit Price] ,&#xD;&#xA;&#x9;&#x9;round(sum(A.[Unit Price Including VAT]-[Profit (LCY)]),3) as [Cost From Markup],&#xD;&#xA;        round(sum(A.[Unit Price])-sum(A.[Unit Price Including VAT]-A.[Profit (LCY)]),3) as [Variance],&#x9;&#xD;&#xA;       ROW_NUMBER() OVER(PARTITION BY [Item No_],[Unit of Measure Code] ,A.[Sales Code] ORDER BY convert(varchar,[Starting Date], 23) DESC) Rank&#xD;&#xA;FROM [dbo].[TFP Retail Sdn Bhd$Sales Price] AS A&#xD;&#xA; LEFT OUTER JOIN [dbo].[TFP Retail Sdn Bhd$Item]as C on C.[No_]=A.[Item No_]&#xD;&#xA;where convert(varchar,[Starting Date], 23) &lt;='2023-11-18' &#xD;&#xA;--AND C.[Division Code]='D13'&#xD;&#xA;and convert(varchar,[Ending Date], 23)='1753-01-01' &#xD;&#xA;--or convert(varchar,[Ending Date], 23)&gt;='2021-11-15'&#xD;&#xA;&#x9;&#x9;and A.[Sales Code] in('BIG')&#xD;&#xA;&#x9;&#x9;and [Item No_] in('1039332','1162928','1129496','1129495','1080406','1203634')  &#xD;&#xA;&#x9;&#x9;group by convert(varchar,A.[Starting Date], 23),convert(varchar,A.[Ending Date], 23),A.[Sales Code],A.[Item No_],A.[Unit of Measure Code],A.[Unit Price]&#xD;&#xA;&#x9;&#x9;--having round(sum([Unit Price])-sum([Unit Price Including VAT]-[Profit (LCY)]),3)&gt;0&#xD;&#xA;) as A&#xD;&#xA;LEFT OUTER JOIN [dbo].[TFP Retail Sdn Bhd$Item]as C on C.[No_]=A.[Item No_]&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;&#xD;&#xA;&#x9;&#x9;where  A.Rank='1' &#xD;&#xA;">
+    <ui:DatabaseConnect DisplayName="Connect to database" sap:VirtualizedContainerService.HintSize="434,60" sap2010:WorkflowViewState.IdRef="DatabaseConnect_1" ProviderName="Microsoft.Data.SqlClient" ConnectionString="Data Source=TFPTEST;Initial Catalog=TFP_MIRROR;Integrated Security=True;Encrypt=False" DatabaseConnection="[conn]" />
+    <Assign sap:VirtualizedContainerService.HintSize="434,82" sap2010:WorkflowViewState.IdRef="Assign_1">
+      <Assign.To>
+        <OutArgument x:TypeArguments="x:String">[queryItemNo]</OutArgument>
+      </Assign.To>
+      <Assign.Value>
+        <InArgument x:TypeArguments="x:String">'1164452','1162928','1129496','1129495','1080406'</InArgument>
+      </Assign.Value>
+    </Assign>
+    <ui:ExecuteQuery ContinueOnError="{x:Null}" TimeoutMS="{x:Null}" CommandType="Text" DataTable="[res]" DisplayName="Run query" ExistingDbConnection="[conn]" sap:VirtualizedContainerService.HintSize="434,89" sap2010:WorkflowViewState.IdRef="ExecuteQuery_1" Sql="[&quot;SELECT A.*,C.[Description]&#xD;&#xA;&#x9;&#xD;&#xA;&#x9;&#xD;&#xA;FROM&#x9;&#xD;&#xA;&#x9;(SELECT convert(varchar,A.[Starting Date], 23) as EffectiveDate,convert(varchar,A.[Ending Date], 23) as PriceEnded,A.[Sales Code],&#xD;&#xA;&#x9;&#x9;A.[Item No_],A.[Unit of Measure Code],A.[Unit Price] ,&#xD;&#xA;&#x9;&#x9;round(sum(A.[Unit Price Including VAT]-[Profit (LCY)]),3) as [Cost From Markup],&#xD;&#xA;        round(sum(A.[Unit Price])-sum(A.[Unit Price Including VAT]-A.[Profit (LCY)]),3) as [Variance],&#x9;&#xD;&#xA;       ROW_NUMBER() OVER(PARTITION BY [Item No_],[Unit of Measure Code] ,A.[Sales Code] ORDER BY convert(varchar,[Starting Date], 23) DESC) Rank&#xD;&#xA;FROM [dbo].[TFP Retail Sdn Bhd$Sales Price] AS A&#xD;&#xA; LEFT OUTER JOIN [dbo].[TFP Retail Sdn Bhd$Item]as C on C.[No_]=A.[Item No_]&#xD;&#xA;where convert(varchar,[Starting Date], 23) &lt;='2023-11-18' &#xD;&#xA;--AND C.[Division Code]='D13'&#xD;&#xA;and convert(varchar,[Ending Date], 23)='1753-01-01' &#xD;&#xA;--or convert(varchar,[Ending Date], 23)&gt;='2021-11-15'&#xD;&#xA;&#x9;&#x9;and A.[Sales Code] in('OTK')&#xD;&#xA;&#x9;&#x9;and [Item No_] in(&quot;+queryItemNo+&quot;)  &#xD;&#xA;&#x9;&#x9;group by convert(varchar,A.[Starting Date], 23),convert(varchar,A.[Ending Date], 23),A.[Sales Code],A.[Item No_],A.[Unit of Measure Code],A.[Unit Price]&#xD;&#xA;&#x9;&#x9;--having round(sum([Unit Price])-sum([Unit Price Including VAT]-[Profit (LCY)]),3)&gt;0&#xD;&#xA;) as A&#xD;&#xA;LEFT OUTER JOIN [dbo].[TFP Retail Sdn Bhd$Item]as C on C.[No_]=A.[Item No_]&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;&#xD;&#xA;&#x9;&#x9;where  A.Rank='1' &#xD;&#xA;&quot;]">
       <ui:ExecuteQuery.Parameters>
-        <scg:Dictionary x:TypeArguments="x:String, Argument" />
+        <InArgument x:TypeArguments="x:String" x:Key="itemNo">
+          <VisualBasicValue x:TypeArguments="x:String" ExpressionText="queryItemNo" />
+        </InArgument>
       </ui:ExecuteQuery.Parameters>
     </ui:ExecuteQuery>
-    <ui:WriteRange StartingCell="{x:Null}" AddHeaders="True" DataTable="[res]" DisplayName="Write Range Workbook" sap:VirtualizedContainerService.HintSize="388,116" sap2010:WorkflowViewState.IdRef="WriteRange_1" SheetName="Item Price" WorkbookPath="dbres.xlsx" />
+    <ui:WriteRange StartingCell="{x:Null}" AddHeaders="True" DataTable="[res]" DisplayName="Write Range Workbook" sap:VirtualizedContainerService.HintSize="434,116" sap2010:WorkflowViewState.IdRef="WriteRange_1" SheetName="Item Price" WorkbookPath="dbres.xlsx" />
   </Sequence>
 </Activity>
