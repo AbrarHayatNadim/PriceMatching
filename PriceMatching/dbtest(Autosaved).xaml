@@ -5,7 +5,7 @@
   <VisualBasic.Settings>
     <x:Null />
   </VisualBasic.Settings>
-  <sap:VirtualizedContainerService.HintSize>1240,643</sap:VirtualizedContainerService.HintSize>
+  <sap:VirtualizedContainerService.HintSize>1240,768</sap:VirtualizedContainerService.HintSize>
   <sap2010:WorkflowViewState.IdRef>dbtest_1</sap2010:WorkflowViewState.IdRef>
   <TextExpression.NamespacesForImplementation>
     <sco:Collection x:TypeArguments="x:String">
@@ -99,7 +99,7 @@
       <AssemblyReference>UiPath.Excel</AssemblyReference>
     </sco:Collection>
   </TextExpression.ReferencesForImplementation>
-  <Sequence DisplayName="dbtest" sap:VirtualizedContainerService.HintSize="496,578" sap2010:WorkflowViewState.IdRef="Sequence_1">
+  <Sequence DisplayName="dbtest" sap:VirtualizedContainerService.HintSize="496,703" sap2010:WorkflowViewState.IdRef="Sequence_1">
     <Sequence.Variables>
       <Variable x:TypeArguments="ui:DatabaseConnection" Name="conn" />
       <Variable x:TypeArguments="sd:DataTable" Name="res" />
@@ -119,6 +119,7 @@
         <InArgument x:TypeArguments="x:String">[itemQueryLSNew]</InArgument>
       </Assign.Value>
     </Assign>
+    <ui:MessageBox Caption="{x:Null}" ChosenButton="{x:Null}" AutoCloseAfter="00:00:00" DisplayName="Message Box" sap:VirtualizedContainerService.HintSize="434,85" sap2010:WorkflowViewState.IdRef="MessageBox_1" Text="[queryItemNo]" />
     <ui:ExecuteQuery ContinueOnError="{x:Null}" TimeoutMS="{x:Null}" CommandType="Text" DataTable="[res]" DisplayName="Run query" ExistingDbConnection="[conn]" sap:VirtualizedContainerService.HintSize="434,89" sap2010:WorkflowViewState.IdRef="ExecuteQuery_1" Sql="[&quot;SELECT A.*,C.[Description]&#xA;&#x9;&#xA;&#x9;&#xA;FROM&#x9;&#xA;&#x9;(SELECT convert(varchar,A.[Starting Date], 23) as EffectiveDate,convert(varchar,A.[Ending Date], 23) as PriceEnded,A.[Sales Code],&#xA;&#x9;&#x9;A.[Item No_],A.[Unit of Measure Code],A.[Unit Price] ,&#xA;&#x9;&#x9;round(sum(A.[Unit Price Including VAT]-[Profit (LCY)]),3) as [Cost From Markup],&#xA;        round(sum(A.[Unit Price])-sum(A.[Unit Price Including VAT]-A.[Profit (LCY)]),3) as [Variance],&#x9;&#xA;       ROW_NUMBER() OVER(PARTITION BY [Item No_],[Unit of Measure Code] ,A.[Sales Code] ORDER BY convert(varchar,[Starting Date], 23) DESC) Rank&#xA;FROM [dbo].[TFP Retail Sdn Bhd$Sales Price] AS A&#xA; LEFT OUTER JOIN [dbo].[TFP Retail Sdn Bhd$Item]as C on C.[No_]=A.[Item No_]&#xA;where convert(varchar,[Starting Date], 23) &lt;='2023-11-18' &#xA;--AND C.[Division Code]='D13'&#xA;and convert(varchar,[Ending Date], 23)='1753-01-01' &#xA;--or convert(varchar,[Ending Date], 23)&gt;='2021-11-15'&#xA;&#x9;&#x9;and A.[Sales Code] in('OTK')&#xA;&#x9;&#x9;and [Item No_] in(&quot;+queryItemNo+&quot;)  &#xA;&#x9;&#x9;group by convert(varchar,A.[Starting Date], 23),convert(varchar,A.[Ending Date], 23),A.[Sales Code],A.[Item No_],A.[Unit of Measure Code],A.[Unit Price]&#xA;&#x9;&#x9;--having round(sum([Unit Price])-sum([Unit Price Including VAT]-[Profit (LCY)]),3)&gt;0&#xA;) as A&#xA;LEFT OUTER JOIN [dbo].[TFP Retail Sdn Bhd$Item]as C on C.[No_]=A.[Item No_]&#xA;&#x9;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;where  A.Rank='1' &#xA;&quot;]">
       <ui:ExecuteQuery.Parameters>
         <InArgument x:TypeArguments="x:String" x:Key="itemNo">[queryItemNo]</InArgument>
