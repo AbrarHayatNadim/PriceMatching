@@ -5,7 +5,7 @@
   <VisualBasic.Settings>
     <x:Null />
   </VisualBasic.Settings>
-  <sap:VirtualizedContainerService.HintSize>1794.4,2132.8</sap:VirtualizedContainerService.HintSize>
+  <sap:VirtualizedContainerService.HintSize>1794.4,2092.8</sap:VirtualizedContainerService.HintSize>
   <sap2010:WorkflowViewState.IdRef>dbtest_1</sap2010:WorkflowViewState.IdRef>
   <TextExpression.NamespacesForImplementation>
     <sco:Collection x:TypeArguments="x:String">
@@ -106,7 +106,7 @@
       <AssemblyReference>UiPath.UIAutomationCore</AssemblyReference>
     </sco:Collection>
   </TextExpression.ReferencesForImplementation>
-  <Sequence DisplayName="dbtest" sap:VirtualizedContainerService.HintSize="697.6,2068" sap2010:WorkflowViewState.IdRef="Sequence_1">
+  <Sequence DisplayName="dbtest" sap:VirtualizedContainerService.HintSize="688,2028" sap2010:WorkflowViewState.IdRef="Sequence_1">
     <Sequence.Variables>
       <Variable x:TypeArguments="ui:DatabaseConnection" Name="conn" />
       <Variable x:TypeArguments="sd:DataTable" Name="res" />
@@ -119,8 +119,8 @@
         <x:Boolean x:Key="IsExpanded">True</x:Boolean>
       </scg:Dictionary>
     </sap:WorkflowViewStateService.ViewState>
-    <ui:DatabaseConnect DisplayName="Connect to database" sap:VirtualizedContainerService.HintSize="635.2,60" sap2010:WorkflowViewState.IdRef="DatabaseConnect_1" ProviderName="Microsoft.Data.SqlClient" ConnectionString="Data Source=TFPTEST;Initial Catalog=TFP_MIRROR;Integrated Security=True;Encrypt=False" DatabaseConnection="[conn]" />
-    <ueab:ExcelProcessScopeX DisplayAlerts="{x:Null}" ExistingProcessAction="{x:Null}" FileConflictResolution="{x:Null}" LaunchMethod="{x:Null}" LaunchTimeout="{x:Null}" MacroSettings="{x:Null}" ProcessMode="{x:Null}" ShowExcelWindow="{x:Null}" DisplayName="Excel Process Scope" sap:VirtualizedContainerService.HintSize="635.2,52.8" sap2010:WorkflowViewState.IdRef="ExcelProcessScopeX_2">
+    <ui:DatabaseConnect DisplayName="Connect to database" sap:VirtualizedContainerService.HintSize="625.6,60" sap2010:WorkflowViewState.IdRef="DatabaseConnect_1" ProviderName="Microsoft.Data.SqlClient" ConnectionString="Data Source=TFPTEST;Initial Catalog=TFP_MIRROR;Integrated Security=True;Encrypt=False" DatabaseConnection="[conn]" />
+    <ueab:ExcelProcessScopeX DisplayAlerts="{x:Null}" ExistingProcessAction="{x:Null}" FileConflictResolution="{x:Null}" LaunchMethod="{x:Null}" LaunchTimeout="{x:Null}" MacroSettings="{x:Null}" ProcessMode="{x:Null}" ShowExcelWindow="{x:Null}" DisplayName="Excel Process Scope" sap:VirtualizedContainerService.HintSize="625.6,52.8" sap2010:WorkflowViewState.IdRef="ExcelProcessScopeX_2">
       <ueab:ExcelProcessScopeX.Body>
         <ActivityAction x:TypeArguments="ui:IExcelProcess">
           <ActivityAction.Argument>
@@ -171,7 +171,7 @@
         </scg:Dictionary>
       </sap:WorkflowViewStateService.ViewState>
     </ueab:ExcelProcessScopeX>
-    <ui:CommentOut DisplayName="Comment Out" sap:VirtualizedContainerService.HintSize="635.2,52.8" sap2010:WorkflowViewState.IdRef="CommentOut_1">
+    <ui:CommentOut DisplayName="Comment Out" sap:VirtualizedContainerService.HintSize="625.6,52.8" sap2010:WorkflowViewState.IdRef="CommentOut_1">
       <ui:CommentOut.Body>
         <Sequence DisplayName="Ignored Activities" sap:VirtualizedContainerService.HintSize="496,193.6" sap2010:WorkflowViewState.IdRef="Sequence_4">
           <sap:WorkflowViewStateService.ViewState>
@@ -196,13 +196,13 @@
         </scg:Dictionary>
       </sap:WorkflowViewStateService.ViewState>
     </ui:CommentOut>
-    <ui:ExecuteQuery ContinueOnError="{x:Null}" TimeoutMS="{x:Null}" CommandType="Text" DataTable="[res]" DisplayName="Run query" ExistingDbConnection="[conn]" sap:VirtualizedContainerService.HintSize="635.2,89.6" sap2010:WorkflowViewState.IdRef="ExecuteQuery_2" Sql="[&quot;SELECT A.*,C.[Description]&#xD;&#xA;&#x9;&#xD;&#xA;&#x9;&#xD;&#xA;FROM&#x9;&#xD;&#xA;&#x9;(SELECT convert(varchar,A.[Starting Date], 23) as EffectiveDate,convert(varchar,A.[Ending Date], 23) as PriceEnded,A.[Sales Code],&#xD;&#xA;&#x9;&#x9;A.[Item No_],A.[Unit of Measure Code],A.[Unit Price] ,&#xD;&#xA;&#x9;&#x9;round(sum(A.[Unit Price Including VAT]-[Profit (LCY)]),3) as [Cost From Markup],&#xD;&#xA;        round(sum(A.[Unit Price])-sum(A.[Unit Price Including VAT]-A.[Profit (LCY)]),3) as [Variance],&#x9;&#xD;&#xA;       ROW_NUMBER() OVER(PARTITION BY [Item No_],[Unit of Measure Code] ,A.[Sales Code] ORDER BY convert(varchar,[Starting Date], 23) DESC) Rank&#xD;&#xA;FROM [dbo].[TFP Retail Sdn Bhd$Sales Price] AS A&#xD;&#xA; LEFT OUTER JOIN [dbo].[TFP Retail Sdn Bhd$Item]as C on C.[No_]=A.[Item No_]&#xD;&#xA;where convert(varchar,[Starting Date], 23) &lt;='2023-11-18' &#xD;&#xA;--AND C.[Division Code]='D13'&#xD;&#xA;and convert(varchar,[Ending Date], 23)='1753-01-01' &#xD;&#xA;--or convert(varchar,[Ending Date], 23)&gt;='2021-11-15'&#xD;&#xA;&#x9;&#x9;and A.[Sales Code] in('OTK')&#xD;&#xA;&#x9;&#x9;and [Item No_] in(&quot;+queryItemNo+&quot;)  &#xD;&#xA;&#x9;&#x9;group by convert(varchar,A.[Starting Date], 23),convert(varchar,A.[Ending Date], 23),A.[Sales Code],A.[Item No_],A.[Unit of Measure Code],A.[Unit Price]&#xD;&#xA;&#x9;&#x9;--having round(sum([Unit Price])-sum([Unit Price Including VAT]-[Profit (LCY)]),3)&gt;0&#xD;&#xA;) as A&#xD;&#xA;LEFT OUTER JOIN [dbo].[TFP Retail Sdn Bhd$Item]as C on C.[No_]=A.[Item No_]&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;&#xD;&#xA;&#x9;&#x9;where  A.Rank='1' &#xD;&#xA;&quot;]">
+    <ui:ExecuteQuery ContinueOnError="{x:Null}" TimeoutMS="{x:Null}" CommandType="Text" DataTable="[res]" DisplayName="Run query" ExistingDbConnection="[conn]" sap:VirtualizedContainerService.HintSize="625.6,89.6" sap2010:WorkflowViewState.IdRef="ExecuteQuery_2" Sql="[&quot;SELECT A.*,C.[Description]&#xD;&#xA;&#x9;&#xD;&#xA;&#x9;&#xD;&#xA;FROM&#x9;&#xD;&#xA;&#x9;(SELECT convert(varchar,A.[Starting Date], 23) as EffectiveDate,convert(varchar,A.[Ending Date], 23) as PriceEnded,A.[Sales Code],&#xD;&#xA;&#x9;&#x9;A.[Item No_],A.[Unit of Measure Code],A.[Unit Price] ,&#xD;&#xA;&#x9;&#x9;round(sum(A.[Unit Price Including VAT]-[Profit (LCY)]),3) as [Cost From Markup],&#xD;&#xA;        round(sum(A.[Unit Price])-sum(A.[Unit Price Including VAT]-A.[Profit (LCY)]),3) as [Variance],&#x9;&#xD;&#xA;       ROW_NUMBER() OVER(PARTITION BY [Item No_],[Unit of Measure Code] ,A.[Sales Code] ORDER BY convert(varchar,[Starting Date], 23) DESC) Rank&#xD;&#xA;FROM [dbo].[TFP Retail Sdn Bhd$Sales Price] AS A&#xD;&#xA; LEFT OUTER JOIN [dbo].[TFP Retail Sdn Bhd$Item]as C on C.[No_]=A.[Item No_]&#xD;&#xA;where convert(varchar,[Starting Date], 23) &lt;='2023-11-18' &#xD;&#xA;--AND C.[Division Code]='D13'&#xD;&#xA;and convert(varchar,[Ending Date], 23)='1753-01-01' &#xD;&#xA;--or convert(varchar,[Ending Date], 23)&gt;='2021-11-15'&#xD;&#xA;&#x9;&#x9;and A.[Sales Code] in('OTK')&#xD;&#xA;&#x9;&#x9;and [Item No_] in(&quot;+queryItemNo+&quot;)  &#xD;&#xA;&#x9;&#x9;group by convert(varchar,A.[Starting Date], 23),convert(varchar,A.[Ending Date], 23),A.[Sales Code],A.[Item No_],A.[Unit of Measure Code],A.[Unit Price]&#xD;&#xA;&#x9;&#x9;--having round(sum([Unit Price])-sum([Unit Price Including VAT]-[Profit (LCY)]),3)&gt;0&#xD;&#xA;) as A&#xD;&#xA;LEFT OUTER JOIN [dbo].[TFP Retail Sdn Bhd$Item]as C on C.[No_]=A.[Item No_]&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;&#xD;&#xA;&#x9;&#x9;where  A.Rank='1' &#xD;&#xA;&quot;]">
       <ui:ExecuteQuery.Parameters>
         <InArgument x:TypeArguments="x:String" x:Key="itemNo">[queryItemNo]</InArgument>
       </ui:ExecuteQuery.Parameters>
     </ui:ExecuteQuery>
-    <ui:WriteRange StartingCell="{x:Null}" AddHeaders="False" DataTable="[res]" DisplayName="Write Range Workbook" sap:VirtualizedContainerService.HintSize="635.2,116" sap2010:WorkflowViewState.IdRef="WriteRange_4" SheetName="result" WorkbookPath="BIG-WORKING.xlsx" />
-    <ui:FilterDataTable DataTable="[res]" DisplayName="Filter Data Table" FilterRowsMode="Keep" sap:VirtualizedContainerService.HintSize="635.2,162.4" sap2010:WorkflowViewState.IdRef="FilterDataTable_1" OutputDataTable="[unitpriceDT]" SelectColumnsMode="Keep">
+    <ui:WriteRange StartingCell="{x:Null}" AddHeaders="False" DataTable="[res]" DisplayName="Write Range Workbook" sap:VirtualizedContainerService.HintSize="625.6,116" sap2010:WorkflowViewState.IdRef="WriteRange_4" SheetName="result" WorkbookPath="BIG-WORKING.xlsx" />
+    <ui:FilterDataTable DataTable="[res]" DisplayName="Filter Data Table" FilterRowsMode="Keep" sap:VirtualizedContainerService.HintSize="625.6,162.4" sap2010:WorkflowViewState.IdRef="FilterDataTable_1" OutputDataTable="[unitpriceDT]" SelectColumnsMode="Keep">
       <ui:FilterDataTable.Filters>
         <scg:List x:TypeArguments="ui:FilterOperationArgument" Capacity="4">
           <ui:FilterOperationArgument Operand="{x:Null}" BooleanOperator="And" Operator="NOTEMPTY">
@@ -218,7 +218,7 @@
         </scg:List>
       </ui:FilterDataTable.SelectColumns>
     </ui:FilterDataTable>
-    <ui:FilterDataTable DataTable="[res]" DisplayName="Filter Data Table" FilterRowsMode="Keep" sap:VirtualizedContainerService.HintSize="635.2,162.4" sap2010:WorkflowViewState.IdRef="FilterDataTable_2" OutputDataTable="[costPriceDT]" SelectColumnsMode="Keep">
+    <ui:FilterDataTable DataTable="[res]" DisplayName="Filter Data Table" FilterRowsMode="Keep" sap:VirtualizedContainerService.HintSize="625.6,162.4" sap2010:WorkflowViewState.IdRef="FilterDataTable_2" OutputDataTable="[costPriceDT]" SelectColumnsMode="Keep">
       <ui:FilterDataTable.Filters>
         <scg:List x:TypeArguments="ui:FilterOperationArgument" Capacity="4">
           <ui:FilterOperationArgument Operand="{x:Null}" BooleanOperator="And" Operator="NOTEMPTY">
@@ -234,19 +234,19 @@
         </scg:List>
       </ui:FilterDataTable.SelectColumns>
     </ui:FilterDataTable>
-    <ueab:ExcelProcessScopeX DisplayAlerts="{x:Null}" ExistingProcessAction="{x:Null}" FileConflictResolution="{x:Null}" LaunchMethod="{x:Null}" LaunchTimeout="{x:Null}" MacroSettings="{x:Null}" ProcessMode="{x:Null}" ShowExcelWindow="{x:Null}" DisplayName="Excel Process Scope" sap:VirtualizedContainerService.HintSize="635.2,980" sap2010:WorkflowViewState.IdRef="ExcelProcessScopeX_1">
+    <ueab:ExcelProcessScopeX DisplayAlerts="{x:Null}" ExistingProcessAction="{x:Null}" FileConflictResolution="{x:Null}" LaunchMethod="{x:Null}" LaunchTimeout="{x:Null}" MacroSettings="{x:Null}" ProcessMode="{x:Null}" ShowExcelWindow="{x:Null}" DisplayName="Excel Process Scope" sap:VirtualizedContainerService.HintSize="625.6,940" sap2010:WorkflowViewState.IdRef="ExcelProcessScopeX_1">
       <ueab:ExcelProcessScopeX.Body>
         <ActivityAction x:TypeArguments="ui:IExcelProcess">
           <ActivityAction.Argument>
             <DelegateInArgument x:TypeArguments="ui:IExcelProcess" Name="ExcelProcessScopeTag" />
           </ActivityAction.Argument>
-          <Sequence DisplayName="Do" sap:VirtualizedContainerService.HintSize="592,893.6" sap2010:WorkflowViewState.IdRef="Sequence_3">
+          <Sequence DisplayName="Do" sap:VirtualizedContainerService.HintSize="592,853.6" sap2010:WorkflowViewState.IdRef="Sequence_3">
             <sap:WorkflowViewStateService.ViewState>
               <scg:Dictionary x:TypeArguments="x:String, x:Object">
                 <x:Boolean x:Key="IsExpanded">True</x:Boolean>
               </scg:Dictionary>
             </sap:WorkflowViewStateService.ViewState>
-            <ueab:ExcelApplicationCard Password="{x:Null}" ReadFormatting="{x:Null}" DisplayName="Use Excel File" sap:VirtualizedContainerService.HintSize="529.6,781.6" sap2010:WorkflowViewState.IdRef="ExcelApplicationCard_1" ResizeWindow="None" WorkbookPath="2023.12 Price Matching v1.0-by-nadim.xlsb">
+            <ueab:ExcelApplicationCard Password="{x:Null}" ReadFormatting="{x:Null}" DisplayName="Use Excel File" sap:VirtualizedContainerService.HintSize="529.6,741.6" sap2010:WorkflowViewState.IdRef="ExcelApplicationCard_1" ResizeWindow="None" WorkbookPath="2023.12 Price Matching v1.0-by-nadim.xlsb">
               <ueab:ExcelApplicationCard.Body>
                 <ActivityAction x:TypeArguments="ue:IWorkbookQuickHandle">
                   <ActivityAction.Argument>
