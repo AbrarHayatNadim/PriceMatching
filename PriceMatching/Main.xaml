@@ -82,7 +82,7 @@
       <AssemblyReference>Microsoft.Win32.Primitives</AssemblyReference>
     </sco:Collection>
   </TextExpression.ReferencesForImplementation>
-  <Sequence DisplayName="Main Sequence" sap:VirtualizedContainerService.HintSize="449.6,532.8" sap2010:WorkflowViewState.IdRef="Sequence_1">
+  <Sequence DisplayName="PRICE MATCHING Main Sequence" sap:VirtualizedContainerService.HintSize="449.6,532.8" sap2010:WorkflowViewState.IdRef="Sequence_1">
     <Sequence.Variables>
       <Variable x:TypeArguments="x:String" Name="itemQuery" />
       <Variable x:TypeArguments="x:String" Name="itemColumnLength" />
@@ -91,6 +91,9 @@
       <Variable x:TypeArguments="sd:DataTable" Name="otkfulldt" />
       <Variable x:TypeArguments="sd:DataTable" Name="vgfulldt" />
       <Variable x:TypeArguments="sd:DataTable" Name="bigfulldt" />
+      <Variable x:TypeArguments="sd:DataTable" Name="otkItemList" />
+      <Variable x:TypeArguments="sd:DataTable" Name="bigItemList" />
+      <Variable x:TypeArguments="sd:DataTable" Name="vgItemList" />
     </Sequence.Variables>
     <sap:WorkflowViewStateService.ViewState>
       <scg:Dictionary x:TypeArguments="x:String, x:Object">
@@ -99,27 +102,13 @@
     </sap:WorkflowViewStateService.ViewState>
     <ui:InvokeWorkflowFile ArgumentsVariable="{x:Null}" ContinueOnError="{x:Null}" DisplayName="item-sql-query-on-excel.xaml - Invoke Workflow File" sap:VirtualizedContainerService.HintSize="387.2,113.6" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_2" UnSafe="False" WorkflowFileName="item-sql-query-on-excel.xaml">
       <ui:InvokeWorkflowFile.Arguments>
-        <OutArgument x:TypeArguments="x:String" x:Key="itemQueryLS">
-          <VisualBasicReference x:TypeArguments="x:String" ExpressionText="itemQuery" />
-        </OutArgument>
-        <OutArgument x:TypeArguments="x:String" x:Key="lengthOfItemsColumn">
-          <VisualBasicReference x:TypeArguments="x:String" ExpressionText="itemColumnLength" />
-        </OutArgument>
-        <OutArgument x:TypeArguments="sd:DataTable" x:Key="otkWorkingFullDt">
-          <VisualBasicReference x:TypeArguments="sd:DataTable" ExpressionText="otkfulldt" />
-        </OutArgument>
-        <OutArgument x:TypeArguments="sd:DataTable" x:Key="vgWorkingFullDT">
-          <VisualBasicReference x:TypeArguments="sd:DataTable" ExpressionText="vgfulldt" />
-        </OutArgument>
-        <OutArgument x:TypeArguments="sd:DataTable" x:Key="bigWorkingFullDT">
-          <VisualBasicReference x:TypeArguments="sd:DataTable" ExpressionText="bigfulldt" />
-        </OutArgument>
-        <OutArgument x:TypeArguments="x:String" x:Key="itemListForDBQueryVG">
-          <VisualBasicReference x:TypeArguments="x:String" ExpressionText="itemListVG" />
-        </OutArgument>
-        <OutArgument x:TypeArguments="x:String" x:Key="itemListForDBQueryBIG">
-          <VisualBasicReference x:TypeArguments="x:String" ExpressionText="itemListBIG" />
-        </OutArgument>
+        <OutArgument x:TypeArguments="x:String" x:Key="itemQueryLS">[itemQuery]</OutArgument>
+        <OutArgument x:TypeArguments="x:String" x:Key="lengthOfItemsColumn">[itemColumnLength]</OutArgument>
+        <OutArgument x:TypeArguments="sd:DataTable" x:Key="otkWorkingFullDt">[otkfulldt]</OutArgument>
+        <OutArgument x:TypeArguments="sd:DataTable" x:Key="vgWorkingFullDT">[vgfulldt]</OutArgument>
+        <OutArgument x:TypeArguments="sd:DataTable" x:Key="bigWorkingFullDT">[bigfulldt]</OutArgument>
+        <OutArgument x:TypeArguments="x:String" x:Key="itemListForDBQueryVG">[itemListVG]</OutArgument>
+        <OutArgument x:TypeArguments="x:String" x:Key="itemListForDBQueryBIG">[itemListBIG]</OutArgument>
       </ui:InvokeWorkflowFile.Arguments>
     </ui:InvokeWorkflowFile>
     <ui:InvokeWorkflowFile ArgumentsVariable="{x:Null}" ContinueOnError="{x:Null}" DisplayName="dbtest(Autosaved).xaml - Invoke Workflow File" sap:VirtualizedContainerService.HintSize="387.2,113.6" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_1" UnSafe="False" WorkflowFileName="dbtest(Autosaved).xaml">
@@ -133,6 +122,15 @@
         <InArgument x:TypeArguments="x:String" x:Key="itemQueryBig">
           <VisualBasicValue x:TypeArguments="x:String" ExpressionText="itemListBIG" />
         </InArgument>
+        <OutArgument x:TypeArguments="sd:DataTable" x:Key="otkItemQueryResultDT">
+          <VisualBasicReference x:TypeArguments="sd:DataTable" ExpressionText="otkItemList" />
+        </OutArgument>
+        <OutArgument x:TypeArguments="sd:DataTable" x:Key="bigItemQueryResultDT">
+          <VisualBasicReference x:TypeArguments="sd:DataTable" ExpressionText="bigItemList" />
+        </OutArgument>
+        <OutArgument x:TypeArguments="sd:DataTable" x:Key="VGItemQueryResultDT">
+          <VisualBasicReference x:TypeArguments="sd:DataTable" ExpressionText="vgItemList" />
+        </OutArgument>
       </ui:InvokeWorkflowFile.Arguments>
     </ui:InvokeWorkflowFile>
     <ui:InvokeWorkflowFile ArgumentsVariable="{x:Null}" ContinueOnError="{x:Null}" DisplayName="readPriceMatchingExcel.xaml - Invoke Workflow File" sap:VirtualizedContainerService.HintSize="387.2,113.6" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_3" UnSafe="False" WorkflowFileName="readPriceMatchingExcel.xaml">
@@ -148,6 +146,15 @@
         </InArgument>
         <InArgument x:TypeArguments="sd:DataTable" x:Key="bigFullDT">
           <VisualBasicValue x:TypeArguments="sd:DataTable" ExpressionText="bigfulldt" />
+        </InArgument>
+        <InArgument x:TypeArguments="sd:DataTable" x:Key="otkItemsListFromDB">
+          <VisualBasicValue x:TypeArguments="sd:DataTable" ExpressionText="otkItemList" />
+        </InArgument>
+        <InArgument x:TypeArguments="sd:DataTable" x:Key="bigItemListFromDB">
+          <VisualBasicValue x:TypeArguments="sd:DataTable" ExpressionText="bigItemList" />
+        </InArgument>
+        <InArgument x:TypeArguments="sd:DataTable" x:Key="vgItemListFromDB">
+          <VisualBasicValue x:TypeArguments="sd:DataTable" ExpressionText="vgItemList" />
         </InArgument>
       </ui:InvokeWorkflowFile.Arguments>
     </ui:InvokeWorkflowFile>
