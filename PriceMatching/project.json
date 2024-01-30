@@ -1,5 +1,6 @@
 {
   "name": "PriceMatching",
+  "projectId": "9580656b-b3e0-4049-a66b-58cc99bf001a",
   "description": "Price Matching Process",
   "main": "Main.xaml",
   "dependencies": {
@@ -44,7 +45,8 @@
       "ignoredFiles": []
     },
     "fileInfoCollection": [],
-    "modernBehavior": true
+    "modernBehavior": true,
+    "saveToCloud": false
   },
   "expressionLanguage": "VisualBasic",
   "entryPoints": [
